@@ -16,13 +16,14 @@ export default function Home(){
     
 
     const  getData=async()=>{
-       await axios.get(` https://restcountrIes.com/v2/name/${inputEntered}`)
+       await axios.get(`https://restcountrIes.com/v2/name/${inputEntered}`)
         .then((res:any) => {
           history.push({
             pathname: '/information',
             state: { detail: res?.data}
           })
-        }).catch((err:any)=>{
+        })
+        .catch((err:any)=>{
             toast.error('Information not available')
         })
       }

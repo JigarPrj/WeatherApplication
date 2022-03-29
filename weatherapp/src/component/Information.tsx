@@ -5,21 +5,19 @@ import {
   } from "react-router-dom";
   import {toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+  import {useDispatch} from 'react-redux';
+  import { GET_DATA } from '../allActions/allAction';
   import axios from 'axios';
   toast.configure()
 export default function Information(props:any){
 
     const history=useHistory()    
-
+    const dispatch=useDispatch()
     const  getData=async(capital:any)=>{
         await axios.get(`http://api.weatherstack.com/current?access_key=0d5ca82bfe8f44a53ba3db734e089930&query=${capital}`)
          .then((res:any) => {
-             console.log("jigar",res?.data);
-             
-           history.push({
-             pathname: '/capital',
-             state: { detail: res?.data}
-           })
+             dispatch(GET_DATA(res?.data))
+           history.push('/capital')
            
          }).catch((err:any)=>{
              toast.error('Information not available')
